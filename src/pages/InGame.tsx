@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Keys } from "../@types/controls";
 import { Character } from "../components/Character";
 import { Labyrinth } from "../components/Labyrinth";
-import { checkLadders } from "../utils/checkConstraints";
-import { LABYRINTH_LEVELS } from "../utils/constants";
+import { checkLadders, checkWall } from "../utils/checkConstraints";
+import { bgColors, LABYRINTH_LEVELS } from "../utils/constants";
 import { handleKeyDown, handleKeyUp } from "../utils/controls";
 
-const CHAR_SPEED = 0.01
+const CHAR_SPEED = 0.1
 
 export function InGame(){
     const [ time, setTime ] = useState(0);
@@ -22,36 +22,37 @@ export function InGame(){
         ArrowDown: false,
         Space: false
     });
-    const [ height, setHeight ] = useState(1)
+    const [ height, setHeight ] = useState(0)
     
     const [ verticalMove, setVerticalMove ] = useState({canMoveUp: false, canMoveDown: false})
 
     useEffect(() => {
         setInterval(() => {
             setTime(currentTime => (currentTime + 1) % 360)
-        }, 1)
+        }, 10)
     }, [])
 
     useEffect(() => {
         frameUpdate();
-        checkLadders(height, angle) !== verticalMove ? setVerticalMove(checkLadders(height, angle)) : "";
     }, [time])
-
+    
     useEffect(() => {
         window.addEventListener('keydown', event => keys !== handleKeyDown(event) ? setKeys(handleKeyDown(event)) : "")
         window.addEventListener('keyup', event => keys !== handleKeyUp(event) ? setKeys(handleKeyUp(event)) : "")
     }, [])
-
+    
     function frameUpdate(){
+        checkLadders(height, angle) !== verticalMove ? setVerticalMove(checkLadders(height, angle)) : "";
+        
         if(
             !(keys?.KeyA && keys.KeyD) && 
             !(keys?.ArrowLeft && keys.ArrowRight) &&
             !(keys?.KeyA && keys.ArrowRight) &&
             !(keys?.ArrowLeft && keys.KeyD)
         ){
-            if(keys?.KeyA || keys?.ArrowLeft){
+            if((keys?.KeyA || keys?.ArrowLeft) && checkWall(height, angle) !== "leftCollision"){
                 setAngle(currentAngle => (currentAngle + CHAR_SPEED)%360)
-            }else if(keys?.KeyD || keys?.ArrowRight){
+            }else if((keys?.KeyD || keys?.ArrowRight) && checkWall(height, angle) !== "rightCollision"){
                 setAngle(currentAngle => (360 + currentAngle - CHAR_SPEED)%360)
             }
         }
@@ -73,10 +74,9 @@ export function InGame(){
     }
     
     return (
-        <>
-            <span className="absolute z-50">{angle}</span>
+        <div className="w-full h-full" style={{backgroundColor: bgColors[height]}}>
             <Character canMoveUp={verticalMove.canMoveUp} canMoveDown={verticalMove.canMoveDown}/>
             <Labyrinth angle={angle} height={LABYRINTH_LEVELS[height]}/>
-        </>
+        </div>
     )
 }

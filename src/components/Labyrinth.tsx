@@ -1,5 +1,4 @@
 import labyrinth from "../assets/LabirintoTerra.png"
-import { useInGame } from "../contexts/InGameContext"
 
 interface LabyrinthProps{
     angle: number,

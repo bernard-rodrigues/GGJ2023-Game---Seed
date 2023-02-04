@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { InGameProvider } from "./contexts/InGameContext";
 import { InGame } from "./pages/InGame";
 
 export function App() {
@@ -28,16 +27,14 @@ export function App() {
   
   return (
     <div
-      className="relative overflow-hidden left-1/2 -translate-x-1/2 border-2 border-[#291d15]"
+      className="relative overflow-hidden left-1/2 -translate-x-1/2 border-2 border-[#28160d]"
       style={{
         height: screen.height,
         width: screen.width,
         marginTop: (window.innerHeight - screen.height)/2
       }}
     >
-      <InGameProvider>
-        <InGame />
-      </InGameProvider>
+      <InGame />
     </div>
   )
 }
