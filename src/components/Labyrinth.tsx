@@ -1,21 +1,24 @@
-import labyrinth from "../assets/labyrinth.jpg"
+import labyrinth from "../assets/LabirintoTerra.png"
+import { useInGame } from "../contexts/InGameContext"
 
 interface LabyrinthProps{
     angle: number,
-    height: number
+    height: number,
 }
 
 export function Labyrinth(props: LabyrinthProps){
     return (
-        <div className="absolute left-1/2 -translate-x-1/2">
+        <div 
+            className="absolute left-1/2"
+            style={{
+                transformOrigin: 'calc(50% + 1px) calc(50% + 1px)',
+                transform: `translateX(-50%) rotate(${props.angle}deg) scale(5)`,
+                marginTop: `${props.height}%`
+            }}
+        >
             <img 
                 src={labyrinth} 
-                alt="Radial Labyrinth" 
-                className="origin-center scale-[5]"
-                style={{
-                    rotate: `${props.angle}deg`,
-                    marginTop: props.height
-                }}
+                alt="Radial Labyrinth"
             />
         </div>
     )
