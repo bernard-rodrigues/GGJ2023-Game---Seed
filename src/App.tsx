@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { MusicContextProvider } from "./contexts/MusicContext";
 import { InGame } from "./pages/InGame";
+
 
 export function App() {
   
@@ -34,7 +36,9 @@ export function App() {
         marginTop: (window.innerHeight - screen.height)/2
       }}
     >
-      <InGame />
+      <MusicContextProvider>
+        <InGame />
+      </MusicContextProvider>
     </div>
   )
 }

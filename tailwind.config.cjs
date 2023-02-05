@@ -3,6 +3,12 @@ module.exports = {
   content: ["./src/**/*.tsx", "./index.html"],
   theme: {
     extend: {
+      fontFamily: {
+        amatic: "'Amatic SC', cursive;"
+      },
+      colors: {
+        wood: '#28160d'
+      },
       keyframes: {
         goneWithTheWind: {
           '0%': {transform: 'translateY(11000%) rotate(0deg)'},
@@ -18,6 +24,10 @@ module.exports = {
           '75%': {transform: 'translateY(10000%) rotate(90deg)'},
           '100%': {transform: 'translateY(12000%) rotate(0deg)'},
         },
+        myRotation: {
+          '0%': {transform: 'translate(-50%, -50%) rotate(0deg) scale(0.2)'},
+          '100%': {transform: 'translate(-50%, -50%) rotate(360deg) scale(0.2)'}
+        }
       },
       animation: {
         goneWithTheWind1: 'goneWithTheWind 25s infinite linear',
@@ -28,6 +38,7 @@ module.exports = {
         goneWithTheWind6: 'goneWithTheWind2 40s infinite linear',
         goneWithTheWind7: 'goneWithTheWind2 35s infinite linear',
         goneWithTheWind8: 'goneWithTheWind2 30s infinite linear',
+        myRotation: 'myRotation 30s infinite linear'
       }
     },
   },

@@ -1,4 +1,4 @@
-export function RadialLeaves(){
+export function Fireflies(){
     return(
         <>
             <div 

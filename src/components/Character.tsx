@@ -11,7 +11,7 @@ export function Character(props: CharacterProps){
     return(
         <>
             <div id="body"
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[5%] w-[2%] z-10 bg-blue-400 rounded-[50%40%40%40%] opacity-100 transition-opacity duration-[3s]"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[5%] w-[2%] z-10 bg-lime-700 rounded-[50%40%40%40%] opacity-100 transition-opacity duration-[3s]"
                 style={
                     props.moving === 1 
                     ? {transform: `translate(-50%, -50%) rotateZ(0deg) rotateY(0deg)`}
@@ -24,9 +24,23 @@ export function Character(props: CharacterProps){
                     : {transform: `translate(-50%, -50%) rotateZ(0) rotateY(0)`, opacity: 0}
                 }
             >
+                
+                
+                <div 
+                    id="eye"
+                    className="absolute left-[60%] top-[20%] w-[30%] h-[20%] bg-lime-300 rounded-full"
+                >
+                    <div className="absolute left-[58%] top-[40%] w-[28%] h-[35%] bg-emerald-900 rounded-full"/>
+                </div>
+
+                <div 
+                    id="cheeks"
+                    className="absolute left-[55%] top-[42%] w-[15%] h-[5%] bg-red-300 rounded-full"
+                />
+
                 <div 
                     id="arm" 
-                    className="absolute left-1/2 top-1/2 w-[25%] h-[20%] bg-blue-500 rounded-full"
+                    className="absolute left-1/2 top-1/2 w-[25%] h-[20%] bg-lime-800 rounded-full"
                     style={
                         props.moving === 2 || props.moving === -2 
                         ? {animation: "armMoving 0.5s linear infinite"}
@@ -35,7 +49,7 @@ export function Character(props: CharacterProps){
                 />
                 <div
                     id="foot1"
-                    className="absolute left-1/2 -bottom-[20%] w-[25%] h-[20%] bg-blue-500 rounded-full"
+                    className="absolute left-1/2 -bottom-[20%] w-[25%] h-[20%] bg-lime-800 rounded-full"
                     style={
                         props.moving === 2 || props.moving === -2 
                         ? {animation: "foot1Moving 0.5s linear infinite"}
