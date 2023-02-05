@@ -26,7 +26,7 @@ export function InGame(){
         ArrowDown: false,
         Space: false
     });
-    const [ height, setHeight ] = useState(6)
+    const [ height, setHeight ] = useState(0)
     
     const [ verticalMove, setVerticalMove ] = useState({canMoveUp: false, canMoveDown: false})
     const [ horizontalCanMove, setHorizontalCanMove ] = useState(true)
