@@ -42,7 +42,6 @@ export function MusicContextProvider(props: MusicContextProviderProps){
 
     function handleVolumes(height: number){
         setVolumes(Array.from({length: height + 1}, () => 1))
-        console.log(volumes)
     }
     
     return(

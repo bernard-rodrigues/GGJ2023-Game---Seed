@@ -26,7 +26,7 @@ export function InGame(){
         ArrowDown: false,
         Space: false
     });
-    const [ height, setHeight ] = useState(0)
+    const [ height, setHeight ] = useState(6)
     
     const [ verticalMove, setVerticalMove ] = useState({canMoveUp: false, canMoveDown: false})
     const [ horizontalCanMove, setHorizontalCanMove ] = useState(true)
@@ -114,7 +114,6 @@ export function InGame(){
             references.whale.current?.play()
             references.dolphin.current?.play()
         }, 1000)
-        console.log(references.floor1.current)
     }
     
     return (
