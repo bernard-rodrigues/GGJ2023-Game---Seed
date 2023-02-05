@@ -25,6 +25,8 @@ export function InGame(){
     const [ height, setHeight ] = useState(0)
     
     const [ verticalMove, setVerticalMove ] = useState({canMoveUp: false, canMoveDown: false})
+    const [ horizontalCanMove, setHorizontalCanMove ] = useState(true)
+    const [ moving, setMoving ] = useState(1)
 
     useEffect(() => {
         setInterval(() => {
@@ -45,37 +47,54 @@ export function InGame(){
         checkLadders(height, angle) !== verticalMove ? setVerticalMove(checkLadders(height, angle)) : "";
         
         if(
-            !(keys?.KeyA && keys.KeyD) && 
-            !(keys?.ArrowLeft && keys.ArrowRight) &&
-            !(keys?.KeyA && keys.ArrowRight) &&
-            !(keys?.ArrowLeft && keys.KeyD)
+            !(keys.KeyA && keys.KeyD) && 
+            !(keys.ArrowLeft && keys.ArrowRight) &&
+            !(keys.KeyA && keys.ArrowRight) &&
+            !(keys.ArrowLeft && keys.KeyD) &&
+            horizontalCanMove
         ){
             if((keys?.KeyA || keys?.ArrowLeft) && checkWall(height, angle) !== "leftCollision"){
                 setAngle(currentAngle => (currentAngle + CHAR_SPEED)%360)
-            }else if((keys?.KeyD || keys?.ArrowRight) && checkWall(height, angle) !== "rightCollision"){
+                setMoving(-2)
+            }else if((keys.KeyD || keys.ArrowRight) && checkWall(height, angle) !== "rightCollision"){
                 setAngle(currentAngle => (360 + currentAngle - CHAR_SPEED)%360)
+                setMoving(2)
+            }
+        }
+        
+        if(!keys.KeyA && !keys.KeyD && !keys.ArrowLeft && !keys.ArrowRight){
+            if(moving !== 1 && moving !== -1){
+                if(moving === 2){
+                    setMoving(1)
+                }else{
+                    setMoving(-1)
+                }
             }
         }
         
         if(
-            !(keys?.KeyA && keys.KeyD) && 
-            !(keys?.ArrowLeft && keys.ArrowRight) &&
-            !(keys?.KeyA && keys.ArrowRight) &&
-            !(keys?.ArrowLeft && keys.KeyD)
+            !(keys.KeyA && keys.KeyD) && 
+            !(keys.ArrowLeft && keys.ArrowRight) &&
+            !(keys.KeyA && keys.ArrowRight) &&
+            !(keys.ArrowLeft && keys.KeyD)
         ){
-            if((keys?.KeyS || keys?.ArrowDown) && verticalMove.canMoveDown){
+            if((keys.KeyS || keys.ArrowDown) && verticalMove.canMoveDown){
                 setHeight(currentHeight => currentHeight + 1)
                 setKeys(currentKeys => ({...currentKeys, KeyS: false, ArrowDown: false}))
-            }else if((keys?.KeyW || keys?.ArrowUp) && verticalMove.canMoveUp){
+                setHorizontalCanMove(false)
+                setTimeout(() => setHorizontalCanMove(true), 3000)
+            }else if((keys.KeyW || keys.ArrowUp) && verticalMove.canMoveUp){
                 setHeight(currentHeight => currentHeight - 1)
                 setKeys(currentKeys => ({...currentKeys, KeyW: false, ArrowUp: false}))
+                setHorizontalCanMove(false)
+                setTimeout(() => setHorizontalCanMove(true), 3000)
             }
         }
     }
     
     return (
         <div className="w-full h-full" style={{backgroundColor: bgColors[height]}}>
-            <Character canMoveUp={verticalMove.canMoveUp} canMoveDown={verticalMove.canMoveDown}/>
+            <Character canMoveUp={verticalMove.canMoveUp} canMoveDown={verticalMove.canMoveDown} moving={moving}/>
             <Labyrinth angle={angle} height={LABYRINTH_LEVELS[height]}/>
         </div>
     )
