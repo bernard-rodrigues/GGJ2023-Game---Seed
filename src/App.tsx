@@ -27,7 +27,7 @@ export function App() {
   
   return (
     <div
-      className="relative overflow-hidden left-1/2 -translate-x-1/2 border-2 border-[#28160d]"
+      className="relative overflow-hidden left-1/2 -translate-x-1/2"
       style={{
         height: screen.height,
         width: screen.width,

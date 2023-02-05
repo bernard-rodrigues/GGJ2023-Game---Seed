@@ -1,3 +1,4 @@
+import "../styles/Character.css"
 import { ArrowDown, ArrowUp } from "phosphor-react";
 
 interface CharacterProps{
@@ -9,8 +10,8 @@ interface CharacterProps{
 export function Character(props: CharacterProps){
     return(
         <>
-            <div
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[5%] w-[2%] z-10 bg-blue-400 rounded-[50%40%40%40%]"
+            <div id="body"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[5%] w-[2%] z-10 bg-blue-400 rounded-[50%40%40%40%] opacity-100 transition-opacity duration-[3s]"
                 style={
                     props.moving === 1 
                     ? {transform: `translate(-50%, -50%) rotateZ(0deg) rotateY(0deg)`}
@@ -20,9 +21,27 @@ export function Character(props: CharacterProps){
                     ? {transform: `translate(-50%, -50%) rotateZ(10deg) rotateY(0deg)`}
                     : props.moving === -2
                     ? {transform: `translate(-50%, -50%) rotateZ(-10deg) rotateY(180deg)`}
-                    : {}
+                    : {transform: `translate(-50%, -50%) rotateZ(0) rotateY(0)`, opacity: 0}
                 }
             >
+                <div 
+                    id="arm" 
+                    className="absolute left-1/2 top-1/2 w-[25%] h-[20%] bg-blue-500 rounded-full"
+                    style={
+                        props.moving === 2 || props.moving === -2 
+                        ? {animation: "armMoving 0.5s linear infinite"}
+                        : {}
+                    }
+                />
+                <div
+                    id="foot1"
+                    className="absolute left-1/2 -bottom-[20%] w-[25%] h-[20%] bg-blue-500 rounded-full"
+                    style={
+                        props.moving === 2 || props.moving === -2 
+                        ? {animation: "foot1Moving 0.5s linear infinite"}
+                        : {}
+                    }
+                />
             </div>
                 
             <ArrowUp 

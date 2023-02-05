@@ -1,3 +1,4 @@
+import '../styles/Labyrinth.css'
 import { useEffect, useState } from "react";
 import { Keys } from "../@types/controls";
 import { Character } from "../components/Character";
@@ -6,7 +7,7 @@ import { checkLadders, checkWall } from "../utils/checkConstraints";
 import { bgColors, LABYRINTH_LEVELS } from "../utils/constants";
 import { handleKeyDown, handleKeyUp } from "../utils/controls";
 
-const CHAR_SPEED = 0.1
+const CHAR_SPEED = 0.3
 
 export function InGame(){
     const [ time, setTime ] = useState(0);
@@ -22,11 +23,12 @@ export function InGame(){
         ArrowDown: false,
         Space: false
     });
-    const [ height, setHeight ] = useState(0)
+    const [ height, setHeight ] = useState(9)
     
     const [ verticalMove, setVerticalMove ] = useState({canMoveUp: false, canMoveDown: false})
     const [ horizontalCanMove, setHorizontalCanMove ] = useState(true)
     const [ moving, setMoving ] = useState(1)
+    const [ gameFinished, setGameFinished ] = useState(false)
 
     useEffect(() => {
         setInterval(() => {
@@ -90,12 +92,21 @@ export function InGame(){
                 setTimeout(() => setHorizontalCanMove(true), 3000)
             }
         }
+
+        if(height == 10){
+            setGameFinished(true)
+            setMoving(0)
+        }
     }
     
     return (
-        <div className="w-full h-full" style={{backgroundColor: bgColors[height]}}>
+        <div className="w-full h-full" style={{
+            transition: "background-color 1s",
+            backgroundColor: bgColors[height]
+            }}
+        >
             <Character canMoveUp={verticalMove.canMoveUp} canMoveDown={verticalMove.canMoveDown} moving={moving}/>
-            <Labyrinth angle={angle} height={LABYRINTH_LEVELS[height]}/>
+            <Labyrinth angle={angle} height={LABYRINTH_LEVELS[height]} ended={gameFinished}/>
         </div>
     )
 }

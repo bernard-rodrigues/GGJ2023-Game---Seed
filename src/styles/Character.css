@@ -1,0 +1,11 @@
+@keyframes armMoving {
+    0% {transform: translate(0,0);}
+    50% {transform: translate(160%, -60%)}
+    100% {transform: translate(0,0);}
+}
+
+@keyframes foot1Moving{
+    0% {transform: translate(-160%, -60%)}
+    50% {transform: translate(0,0);}
+    100% {transform: translate(-160%, -60%)}
+}
