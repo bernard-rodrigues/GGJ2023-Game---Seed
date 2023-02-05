@@ -26,7 +26,7 @@ export function MusicSet(){
             <audio 
                 src={sources[3]}
                 ref={references.ending}
-                loop
+                loop={false}
             />
         </>
     )
