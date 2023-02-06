@@ -166,8 +166,8 @@ export function InGame(){
                         size={"15%"} 
                         color={'#28160d'} 
                         className="fixed right-[5%] bottom-[21%] border bg-green-100 border-[#28160d] rounded lg:hidden"
-                        onTouchStart={() => setKeys(currentKeys => ({...currentKeys, ArrowDown: true}))}
-                        onTouchEnd={() => setKeys(currentKeys => ({...currentKeys, ArrowDown: false}))}
+                        onTouchStart={() => setKeys(currentKeys => ({...currentKeys, ArrowUp: true}))}
+                        onTouchEnd={() => setKeys(currentKeys => ({...currentKeys, ArrowUp: false}))}
                     />
                     :<></>
                     }
