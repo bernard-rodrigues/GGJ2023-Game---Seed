@@ -9,6 +9,7 @@ import { bgColors, LABYRINTH_LEVELS } from "../utils/constants";
 import { handleKeyDown, handleKeyUp } from "../utils/controls";
 import { useMusic } from '../contexts/MusicContext';
 import { MusicSet } from '../components/MusicSet'
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from 'phosphor-react';
 
 const CHAR_SPEED = 0.1
 
@@ -117,36 +118,75 @@ export function InGame(){
     }
     
     return (
-        <div className="w-full h-full" style={{
-            transition: "background-color 1s",
-            backgroundColor: bgColors[height]
-        }}
-        >   
-            <MusicSet />
-            {
-                references.floor1.current &&
-                references.whale.current &&
-                references.dolphin.current &&
-                gameStarted
-            ? 
-            <>
-                <Character canMoveUp={verticalMove.canMoveUp} canMoveDown={verticalMove.canMoveDown} moving={moving}/>
-                <Labyrinth angle={angle} height={LABYRINTH_LEVELS[height]} ended={gameFinished}/>
-            </>
-            :
-                references.floor1.current &&
-                references.whale.current &&
-                references.dolphin.current &&
-                !gameStarted
-            ?
-            <>
-                <button className="absolute left-1/2 top-1/2 animate-myRotation hover:w-[55%]">
-                    <img src={labyrinth} alt="StartWheel" onClick={handleStart}/>
-                </button>
-            </>
-            :
-            <></>
-            }
-        </div>
+        <>
+        
+            <div className="w-full h-full" style={{
+                transition: "background-color 1s",
+                backgroundColor: bgColors[height]
+            }}
+            >   
+                <MusicSet />
+                {
+                    references.floor1.current &&
+                    references.whale.current &&
+                    references.dolphin.current &&
+                    gameStarted
+                ? 
+                <>
+                    <Character canMoveUp={verticalMove.canMoveUp} canMoveDown={verticalMove.canMoveDown} moving={moving}/>
+                    <Labyrinth angle={angle} height={LABYRINTH_LEVELS[height]} ended={gameFinished}/>
+                    <ArrowLeft 
+                        size={"15%"} 
+                        color={'#28160d'} 
+                        className="fixed left-[5%] top-[35%] border bg-green-100 border-[#28160d] rounded lg:hidden"
+                        onTouchStart={() => setKeys(currentKeys => ({...currentKeys, ArrowLeft: true}))}
+                        onTouchEnd={() => setKeys(currentKeys => ({...currentKeys, ArrowLeft: false}))}
+                    />
+                    
+                    <ArrowRight
+                        size={"15%"} 
+                        color={'#28160d'} 
+                        className="fixed right-[5%] top-[35%] border bg-green-100 border-[#28160d] rounded lg:hidden"
+                        onTouchStart={() => setKeys(currentKeys => ({...currentKeys, ArrowRight: true}))}
+                        onTouchEnd={() => setKeys(currentKeys => ({...currentKeys, ArrowRight: false}))}
+                    />
+                    
+                    {verticalMove.canMoveDown ? 
+                    <ArrowDown
+                        size={"15%"} 
+                        color={'#28160d'} 
+                        className="fixed right-[5%] bottom-[5%] border bg-green-100 border-[#28160d] rounded lg:hidden"
+                        onTouchStart={() => setKeys(currentKeys => ({...currentKeys, ArrowDown: true}))}
+                        onTouchEnd={() => setKeys(currentKeys => ({...currentKeys, ArrowDown: false}))}
+                    />
+                    : <></>
+                    }
+                    {verticalMove.canMoveUp ?
+                    <ArrowUp
+                        size={"15%"} 
+                        color={'#28160d'} 
+                        className="fixed right-[5%] bottom-[21%] border bg-green-100 border-[#28160d] rounded lg:hidden"
+                        onTouchStart={() => setKeys(currentKeys => ({...currentKeys, ArrowDown: true}))}
+                        onTouchEnd={() => setKeys(currentKeys => ({...currentKeys, ArrowDown: false}))}
+                    />
+                    :<></>
+                    }
+                </>
+                :
+                    references.floor1.current &&
+                    references.whale.current &&
+                    references.dolphin.current &&
+                    !gameStarted
+                ?
+                <>
+                    <button className="absolute left-1/2 top-1/2 animate-myRotation hover:w-[55%]">
+                        <img src={labyrinth} alt="StartWheel" onClick={handleStart}/>
+                    </button>
+                </>
+                :
+                <></>
+                }
+            </div>
+        </>
     )
 }

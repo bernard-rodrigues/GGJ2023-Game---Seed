@@ -48,13 +48,13 @@ export function Character(props: CharacterProps){
             </div>
                 
             <ArrowUp 
-                className="fixed left-[52%] top-[47%] -translate-y-1/2 border-2 border-[#291d15] rounded bg-green-100 z-10 transition-opacity duration-300"
+                className="fixed hidden lg:block left-[52%] top-[47%] -translate-y-1/2 border-2 border-[#291d15] rounded bg-green-100 z-10 transition-opacity duration-300"
                 color="#291d15"
                 size="5%"
                 style={props.canMoveUp ? {opacity: 1} : {opacity: 0}}
             />
             <ArrowDown
-                className="fixed left-[52%] top-[53%] -translate-y-1/2 border-2 border-[#291d15] rounded bg-green-100 z-10 transition-opacity"
+                className="fixed hidden lg:block left-[52%] top-[53%] -translate-y-1/2 border-2 border-[#291d15] rounded bg-green-100 z-10 transition-opacity"
                 color="#291d15"
                 size="5%"
                 style={props.canMoveDown ? {opacity: 1} : {opacity: 0}}

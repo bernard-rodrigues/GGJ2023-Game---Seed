@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { MusicContextProvider } from "./contexts/MusicContext";
 import { InGame } from "./pages/InGame";
-import { NotForPhone } from "./pages/NotForPhone";
 
 
 export function App() {
@@ -39,7 +38,6 @@ export function App() {
     >
       <MusicContextProvider>
         <InGame />
-        <NotForPhone />
       </MusicContextProvider>
     </div>
   )
